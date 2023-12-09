@@ -1,7 +1,7 @@
 const withPWA = require("next-pwa");
 module.exports = withPWA({
   images: {
-    domains: ["i.ibb.co", "ibb.co"],
+    domains: ["i.ibb.co", "ibb.co", "res.cloudinary.com"],
   },
   env: {
     publishableKey: `${process.env.STRIPE_PUBLIC_KEY}`,

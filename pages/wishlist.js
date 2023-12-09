@@ -18,7 +18,7 @@ function WishList() {
       </Head>
       <div className="w-full min-h-screen relative bg-cusgray pb-10">
         <Header />
-        <div className="max-w-7xl mx-auto pt-20 px-5 min-h-screen">
+        <div className="max-w-screen-2xl mx-auto pt-20 px-5 min-h-screen">
           <div className="bg-white rounded-xl shadow-lg grid grid-cols-1 md:grid-cols-3 md:py-6 md:px-6 pb-3">
             <div className="col-span-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 px-4 md:px-0">
               {items.length > 0 ? (

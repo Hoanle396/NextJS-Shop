@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToWishlist } from "../slices/wishlistSlice";
 
 function ProductCard({ item }) {
-  const { size, image } = item.prop[0];
+  const { size, images } = item;
   const dispatch = useDispatch();
 
   return (
@@ -23,7 +23,7 @@ function ProductCard({ item }) {
             width={700}
             objectFit="cover"
             loading="lazy"
-            src={image[0]}
+            src={images[0].url}
             alt=""
             className="rounded-xl w-full h-full bg-cusgray"
           />
@@ -53,18 +53,17 @@ function ProductCard({ item }) {
         </div>
       </div>
       <div
-        onClick={() => Router.push("/product/" + item.slug)}
+        onClick={() => Router.push("/product/" + item.id)}
         className="px-2 py-2"
       >
         <p className="text-sm line-clamp-1">{item.name}</p>
         <p className="text-xs my-2 text-gray-400">{item.color}</p>
-        {/* <p className="text-sm font-semibold">Rp {price}</p> */}
         <NumberFormat
           value={item.price}
           className="text-sm font-semibold text-cusblack"
           displayType={"text"}
           thousandSeparator={true}
-          prefix={"Rp"}
+          prefix={"$ "}
           renderText={(value, props) => (
             <p className="text-sm font-semibold" {...props}>
               {value}

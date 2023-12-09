@@ -31,11 +31,6 @@
 (use card number: 4242 4242 4242 4242 to complete the payment)
 - order page to display successful order
 
-### Clone Repository
-
-```
-git clone https://github.com/mudzikalfahri/wefootwear-ecommerce.git
-```
 
 #### Add .env.local file to root client directory
 

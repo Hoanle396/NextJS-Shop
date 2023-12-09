@@ -7,6 +7,7 @@ import Link from "next/link";
 
 function BasketProduct({ item, idx }) {
   const dispatch = useDispatch();
+  console.log(item);
   return (
     <div
       className="product md:flex justify-between mb-6"
@@ -20,7 +21,7 @@ function BasketProduct({ item, idx }) {
           >
             <img
               className="w-full md:w-32 h-32 object-cover rounded-xl"
-              src={item.prop[0].image[0]}
+              src={item.images[0].url}
               alt=""
             />
           </motion.div>
@@ -30,7 +31,7 @@ function BasketProduct({ item, idx }) {
               <li>Color: {item.color}</li>
               <li>Design ID: {item.category.slug}</li>
               <li>Quantity: {item.quantity}</li>
-              <li>Size: {item.selectedSizeProp}</li>
+              <li>Size: {item.selectedSizeProp.sizeName}</li>
             </ul>
           </div>
         </div>
@@ -41,7 +42,7 @@ function BasketProduct({ item, idx }) {
           className="font-semibold text-cusblack text-right"
           displayType={"text"}
           thousandSeparator={true}
-          prefix={"Rp"}
+          prefix={"$"}
           renderText={(value, props) => (
             <h1 className="font-semibold text-cusblack text-right" {...props}>
               {value}

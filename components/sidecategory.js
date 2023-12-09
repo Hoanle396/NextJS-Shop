@@ -22,7 +22,7 @@ function SideCategory({ typesData }) {
           </button>
         </li>
         {typesData.map((type, idx) => (
-          <li key={type.slug}>
+          <li key={type.id}>
             <button
               className={`${
                 recent == type.name ? `font-semibold text-cusblack` : ``

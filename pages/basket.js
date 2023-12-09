@@ -55,7 +55,7 @@ function Basket() {
       </Head>
       <div className="w-full min-h-screen relative bg-cusgray pb-10">
         <Header />
-        <div className="max-w-7xl mx-auto pt-20 px-5">
+        <div className="max-w-screen-2xl mx-auto pt-20 px-5">
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-x-4">
             <div className="md:col-span-2 md:mr-5">
               <div className="">
@@ -127,7 +127,7 @@ function Basket() {
                     )}
                     displayType={"text"}
                     thousandSeparator={true}
-                    prefix={"Rp"}
+                    prefix={"$"}
                     renderText={(value, props) => <p {...props}>{value}</p>}
                   />
                 </div>

@@ -10,7 +10,7 @@ function OurStore() {
       </Head>
       <div className="w-full min-h-screen bg-cusgray ">
         <Header />
-        <div className="max-w-5xl mx-auto pt-20 pb-10 md:px-0">
+        <div className="max-w-screen-2xl mx-auto pt-20 pb-10 md:px-0">
           <div className="md:rounded-2xl overflow-hidden bg-white shadow-lg grid grid-cols-1 md:grid-cols-2">
             <div className="grid relative grid-cols-2 grid-rows-2 overflow-hidden bg-gray-600 gap-0">
               <div className="absolute top-0 w-full h-full bg-gray-500 bg-opacity-30"></div>
