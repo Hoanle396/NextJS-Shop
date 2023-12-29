@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import nookies from "nookies";
 import Head from "next/head";
+import toast from "react-hot-toast";
+import { useMutation } from "react-query";
+import { login } from "../app/apis/auth/request";
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -23,9 +26,21 @@ export async function getServerSideProps(ctx) {
 
 function Login() {
   const [field, setField] = useState({});
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [error, setError] = useState(false);
+
+  const { mutate ,isLoading} = useMutation(login, {
+    onSuccess: (data) => {
+      nookies.set(null, "token", data.token);
+      nookies.set(null, "user", JSON.stringify(data));
+      setField({});
+      toast.success("you are now logged in")
+      router.push("/shop");
+    },
+    onError: () => {
+      setError(true);
+    }
+  })
 
   const handleChange = (e) => {
     setField({ ...field, [e.target.name]: e.target.value });
@@ -33,27 +48,7 @@ function Login() {
 
   const doLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const req = await fetch(process.env.NEXT_PUBLIC_APIURL + "/auth/local", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(field),
-    });
-    const res = await req.json();
-    if (res.statusCode > 299) {
-      setError(true);
-    }
-    if (res.jwt) {
-      nookies.set(null, "token", JSON.stringify(res.jwt));
-      nookies.set(null, "user", JSON.stringify(res.user));
-      setField({});
-      console.log("success");
-      e.target.reset();
-      router.push("/shop");
-    }
-    setLoading(false);
+    mutate(field)
   };
   return (
     <>
@@ -61,7 +56,7 @@ function Login() {
         <title>wefootwear | Login</title>
       </Head>
       <div className="w-full min-h-screen relative bg-cusgray pb-10 flex justify-center place-items-center">
-        {loading && (
+        {isLoading && (
           <div className="w-full h-screen flex justify-center place-items-center absolute top-0 right-0 bg-white backdrop-blur-sm bg-opacity-20">
             <img
               src="https://i.ibb.co/8jP3GyP/Dual-Ball-1-1s-200px.gif"
@@ -96,7 +91,7 @@ function Login() {
             <input
               onChange={handleChange}
               type="text"
-              name="identifier"
+              name="email"
               placeholder="Email address"
               className="my-2 border rounded-sm border-gray-300 w-full px-4 py-3 text-sm"
             />

@@ -9,6 +9,15 @@ export const login = async (payload) => {
   return data;
 };
 
+export const register = async (payload) => {
+  const { data } = await request({
+    url: '/auth/register',
+    method: 'POST',
+    data: payload
+  });
+  return data;
+};
+
 export const secret = async () => {
   const { data } = await request({
     url: '/auth/me',

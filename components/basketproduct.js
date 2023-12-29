@@ -7,13 +7,12 @@ import Link from "next/link";
 
 function BasketProduct({ item, idx }) {
   const dispatch = useDispatch();
-  console.log(item);
   return (
     <div
       className="product md:flex justify-between mb-6"
       suppressHydrationWarning
     >
-      <Link href={"/product/" + item.slug}>
+      <Link href={"/product/" + item.id}>
         <div className="image md:flex cursor-pointer">
           <motion.div
             initial={{ scale: 1.5, x: 50, y: -50, opacity: 0 }}
@@ -28,8 +27,7 @@ function BasketProduct({ item, idx }) {
           <div className="ml-3 flex flex-col text-cusblack justify-between py-2">
             <p className="font-medium">{item.name}</p>
             <ul className="text-xs md:text-sm leading-relaxed text-gray-400">
-              <li>Color: {item.color}</li>
-              <li>Design ID: {item.category.slug}</li>
+              <li>Category: {item.category.name}</li>
               <li>Quantity: {item.quantity}</li>
               <li>Size: {item.selectedSizeProp.sizeName}</li>
             </ul>

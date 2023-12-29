@@ -3,6 +3,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import nookies from "nookies";
 import Head from "next/head";
+import { useMutation } from "react-query";
+import { register } from "../app/apis/auth/request";
+import toast from "react-hot-toast";
 
 export async function getServerSideProps(ctx) {
   const cookies = nookies.get(ctx);
@@ -22,36 +25,24 @@ export async function getServerSideProps(ctx) {
 
 function Register() {
   const [field, setField] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+
+  const { mutate ,isLoading} = useMutation(register, {
+    onSuccess: (data) => {
+      setField({});
+      toast.success("your account has been registered successfully")
+    },
+    onError: (error) => {
+      toast.error(error?.message ?? "your account has been registered failed")
+    }
+  })
 
   const handleChange = (e) => {
     setField({ ...field, [e.target.name]: e.target.value });
-    console.log(field);
   };
 
   const doRegister = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const req = await fetch(
-      process.env.NEXT_PUBLIC_APIURL + "/auth/local/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(field),
-      }
-    );
-    const res = await req.json();
-    console.log(res);
-
-    if (res.jwt) {
-      setSuccess(true);
-      setField({});
-      e.target.reset();
-    }
-    setLoading(false);
+  mutate(field)
   };
 
   return (
@@ -64,7 +55,7 @@ function Register() {
         animate={{ opacity: 1 }}
         className="w-full min-h-screen relative bg-cusgray pb-10 flex justify-center place-items-center"
       >
-        {loading && (
+        {isLoading && (
           <div className="w-full h-screen flex justify-center place-items-center absolute top-0 right-0 bg-white backdrop-blur-sm bg-opacity-20">
             <img
               src="https://i.ibb.co/8jP3GyP/Dual-Ball-1-1s-200px.gif"
@@ -85,17 +76,13 @@ function Register() {
             Create your Shop Member profile and get first access to the very
             best of products, inspiration and community.
           </p>
-          {success && (
-            <div className="text-xs text-center mb-2 font-light text-green-500">
-              Your account has been registered as a member
-            </div>
-          )}
+          
           <input
             onChange={handleChange}
             required
             type="text"
-            placeholder="Username"
-            name="username"
+            placeholder="Full Name"
+            name="fullname"
             className="my-2 border rounded-sm border-gray-300 w-full px-4 py-3 text-sm"
           />
           <input

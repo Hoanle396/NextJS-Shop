@@ -1,15 +1,16 @@
-import axios from 'axios';
-import { API_URL } from '../constants';
+import axios from "axios";
+import { API_URL } from "../constants";
+import nookies from "nookies";
+
 let request = axios.create({
-  baseURL: API_URL
+  baseURL: API_URL,
 });
 request.interceptors.request.use(
   async (config) => {
     if (!config.headers.Authorization) {
-      const token = localStorage.getItem('token');
+      const token = nookies.get(null)?.token?.replaceAll('"', "") ?? "";
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => Promise.reject(error)

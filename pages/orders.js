@@ -1,14 +1,11 @@
-import React from "react";
-import nookies from "nookies";
-import db from "../firebase/firebase";
-import moment from "moment";
 import Head from "next/head";
-import Header from "../components/header";
+import nookies from "nookies";
+import React from "react";
 import CardProfile from "../components/cardprofile";
+import Header from "../components/header";
 import OrderCard from "../components/ordercard";
 
 export async function getServerSideProps(ctx) {
-  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
   const cookie = nookies.get(ctx, "user").user;
   let session = null;
   if (cookie) {
@@ -23,38 +20,14 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-
-  const stripeOrders = await db
-    .collection("users")
-    .doc(session.email)
-    .collection("orders")
-    .orderBy("timestamp", "desc")
-    .get();
-
-  const orders = await Promise.all(
-    stripeOrders.docs.map(async (order) => ({
-      id: order.id,
-      amount: order.data().amount,
-      amountShipping: order.data().amount_shipping,
-      images: order.data().images,
-      timestamp: moment(order.data().timestamp.toDate()).unix(),
-      items: (
-        await stripe.checkout.sessions.listLineItems(order.id, {
-          limit: 100,
-        })
-      ).data,
-    }))
-  );
-
   return {
     props: {
-      orders,
       session,
     },
   };
 }
 
-function Order({ orders, session }) {
+function Order({ session }) {
   return (
     <>
       <Head>
