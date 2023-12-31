@@ -15,7 +15,7 @@ function WishProduct({ item, idx }) {
       >
         <img
           className="h-28 rounded-lg object-cover w-full"
-          src={item.prop[0].image[0]}
+          src={item.images[0].url}
           alt=""
         />
       </motion.div>
@@ -26,14 +26,14 @@ function WishProduct({ item, idx }) {
           className="text-xs my-1.5"
           displayType={"text"}
           thousandSeparator={true}
-          prefix={"Rp"}
+          prefix={"$"}
           renderText={(value, props) => (
             <p className="text-xs my-1.5" {...props}>
               {value}
             </p>
           )}
         />
-        <Link href={"/product/" + item.slug}>
+        <Link href={"/product/" + item.id}>
           <button className="text-white bg-cusblack border border-cusblack py-1 text-xs w-full rounded-lg">
             View product
           </button>

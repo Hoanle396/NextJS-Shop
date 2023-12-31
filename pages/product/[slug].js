@@ -160,7 +160,7 @@ function Product() {
                   </motion.span>
                 </button>
                 <button
-                  onClick={() => dispatch(addToWishlist(item))}
+                  onClick={() => dispatch(addToWishlist(data))}
                   className="w-1/5 ml-2 bg-white border border-cusblack py-4 text-cusblack rounded-lg text-sm"
                 >
                   <svg

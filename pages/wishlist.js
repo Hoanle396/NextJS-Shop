@@ -7,10 +7,8 @@ import Head from "next/head";
 
 function WishList() {
   const data = useSelector(selectWishItems);
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    setItems(data);
-  });
+
+  console.log('data',data);
   return (
     <>
       <Head>
@@ -21,9 +19,9 @@ function WishList() {
         <div className="max-w-screen-2xl mx-auto pt-20 px-5 min-h-screen">
           <div className="bg-white rounded-xl shadow-lg grid grid-cols-1 md:grid-cols-3 md:py-6 md:px-6 pb-3">
             <div className="col-span-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 px-4 md:px-0">
-              {items.length > 0 ? (
-                items.map((item, idx) => (
-                  <WishProduct item={item} key={item.slug} idx={idx} />
+              {data.length > 0 ? (
+                data.map((item, idx) => (
+                  <WishProduct item={item} key={item.id} idx={idx} />
                 ))
               ) : (
                 <div className="text-sm text-gray-400 col-span-2 md:col-span-3 lg:col-span-4 flex justify-center place-items-center">

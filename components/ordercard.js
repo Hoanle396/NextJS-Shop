@@ -1,9 +1,44 @@
 import React from "react";
 import NumberFormat from "react-number-format";
 import moment from "moment";
+import { ORDER_STATUS } from "../app/constants";
+
+const RenderStatus = ({ status = ORDER_STATUS.PENDING }) => {
+  let color;
+  let title;
+
+  switch (status) {
+    case 0:
+      color = "bg-yellow-500";
+      title = "Pending";
+      break;
+    case 2:
+      color = "bg-green-500";
+      title = "Success";
+      break;
+    case 1:
+      color = "bg-red-500";
+      title = "Closed";
+      break;
+    case 3:
+      color = " bg-blue-500";
+      title = "Confirm";
+      break;
+    default:
+      color = "bg-yellow-500";
+      title = "Pending";
+  }
+
+  return (
+    <div
+      className={`py-0.5 px-2 text-white mx-3 flex text-[8px] place-items-center rounded-lg ${color}`}
+    >
+      {title}
+    </div>
+  );
+};
 
 function OrderCard({ order }) {
-  console.log(order);
   return (
     <div className="py-2 px-4 rounded-lg shadow-lg mb-2">
       <div className="flex place-items-center text-xs text-cusblack py-1">
@@ -20,54 +55,27 @@ function OrderCard({ order }) {
           />
         </svg>
         <p className="mx-2 font-semibold">Shop</p>
-        <p>{moment.unix(order.timestamp).format("DD MMM YYYY")}</p>
-        <div className="py-0.5 px-2 bg-cusblack text-white mx-3 flex text-[8px] place-items-center rounded-lg">
-          processed
-        </div>
+        <p>{moment(order.createdAt).format("DD MMM YYYY")}</p>
+        <RenderStatus status={order.status} />
       </div>
 
       <div className="flex flex-col my-1">
         <div className="md:flex mt-2">
           <div className="md:w-3/4 border-b md:border-b-0 md:border-r border-gray-300">
-            {order.items.map((it, idx) => (
-              <div key={idx} className="flex mb-2">
-                <img
-                  className="w-16 h-16 rounded-lg object-cover"
-                  src={order.images[idx]}
-                  alt=""
-                />
-                <div className="mx-3 text-xs text-cusblack">
-                  <p className="text-sm font-semibold">{it.description}</p>
-                  <div className="flex">
-                    <p className="text-cusblack mr-1">{it.quantity} x </p>
-                    <NumberFormat
-                      value={(it.amount_subtotal / it.quantity) * 100}
-                      className="text-gray-400 text-xs"
-                      displayType={"text"}
-                      thousandSeparator={true}
-                      prefix={"Rp"}
-                      renderText={(value, props) => (
-                        <p className="text-gray-400 text-xs" {...props}>
-                          {value}
-                        </p>
-                      )}
-                    />
-                  </div>
-                </div>
+            <div className="flex mb-2">
+              <div className="mx-3 text-xs text-cusblack">
+                <p className="text-sm font-semibold">{order.code}</p>
               </div>
-            ))}
+            </div>
           </div>
           <div className="md:w-1/4 mt-2 md:mt-0 text-xs text-cusblack flex md:flex-col justify-center place-items-center">
             <p className="text-gray-400 md:mb-1">Total Amount :</p>
             <NumberFormat
-              value={order.items.reduce(
-                (val, item) => val + item.amount_subtotal * 100,
-                0
-              )}
+              value={order.amount}
               className="font-semibold"
               displayType={"text"}
               thousandSeparator={true}
-              prefix={"Rp"}
+              prefix={"$"}
               renderText={(value, props) => (
                 <p className="text-gray-400 text-xs" {...props}>
                   {value}

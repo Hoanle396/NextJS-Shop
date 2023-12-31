@@ -7,7 +7,7 @@ function CardProfile({ session, orders }) {
       <div className="flex flex-col place-items-center pb-3 border-b border-gray-300">
         <div className="w-14 h-14 rounded-full bg-cusblack mb-2"></div>
         <div className="text-center">
-          <p className="mb-1">{session.username}</p>
+          <p className="mb-1">{session.fullName}</p>
           <p className="text-xs text-gray-400 mb-1">Verified Account</p>
           <p className="text-xs text-gray-400">{session.email}</p>
         </div>
@@ -32,21 +32,21 @@ function CardProfile({ session, orders }) {
         </div>
         <div className="text-center text-xs mb-2">
           <p className="text-cusblack mb-1">Payment succeeded :</p>
-          <p className="text-gray-400">{orders.length} times</p>
+          <p className="text-gray-400">{orders?.length ?? 0} times</p>
         </div>
         <div className="text-center text-xs">
           <p className="text-cusblack mb-1">Money Spent :</p>
           <NumberFormat
-            value={orders.reduce(
+            value={orders?.reduce(
               (val, order) =>
                 val +
-                order.items.reduce((v, i) => v + i.amount_subtotal * 100, 0),
+                order.amount,
               0
             )}
             className="text-gray-400 text-xs"
             displayType={"text"}
             thousandSeparator={true}
-            prefix={"Rp"}
+            prefix={"$"}
             renderText={(value, props) => (
               <p className="text-gray-400 text-xs" {...props}>
                 {value}

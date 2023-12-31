@@ -179,7 +179,7 @@ function Header() {
                 {cookie && (
                   <div className="bg-cusblack text-white p-3 rounded-lg">
                     <ul className="text-left w-28">
-                      <li className="line-clamp-1">{cookie.username}</li>
+                      <li className="line-clamp-1">{cookie.fullname}</li>
                       <li className="line-clamp-1">{cookie.email}</li>
                     </ul>
                   </div>
@@ -210,7 +210,7 @@ function Header() {
                 )}
                 {!cookie && (
                   <Link href="/login">
-                    <div className="hover:underline flex place-items-center">
+                    <div className="hover:underline flex place-items-center flex-row min-w-[100px]">
                       <span>
                         <svg
                           className="w-6 h-6 text-cusblack"
