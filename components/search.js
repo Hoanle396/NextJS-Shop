@@ -1,17 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import Router from "next/router";
+import { useProduct } from "../app/apis/products";
 
 function Search() {
   const [input, setInput] = useState("");
-  const [data, setData] = useState([]);
+  const { data: product } = useProduct({ keyword: input });
+
   const handleChange = async (e) => {
     setInput(e.target.value);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APIURL}/items?name_contains=${input}`
-    );
-    const data = await res.json();
-    setData(data);
   };
   return (
     <div className="flex relative group md:ml-auto justify-between pr-4 place-items-center flex-grow h-full rounded-3xl bg-white">
@@ -21,19 +18,19 @@ function Search() {
         type="text"
         placeholder="Search product"
       />
-      <div className="p-5 shadow-lg hidden duration-100 group-focus-within:inline group-active:inline top-11 bg-white absolute rounded-2xl w-full z-20">
-        {data.length ? (
-          data
+      <div className="p-5 shadow-lg hidden duration-100 group-focus-within:inline group-active:inline top-11 bg-white absolute rounded-2xl w-full z-50">
+        {product?.length ? (
+          product
             .filter((i, idx) => idx < 4)
             .map((item, idx) => (
-              <div onClick={() => Router.push("/product/" + item.slug)}>
+              <div onClick={() => Router.push("/product/" + item.id)}>
                 <div
                   key={idx}
                   className="p-2 flex place-items-center cursor-pointer text-xs font-light text-cusblack hover:bg-gray-100 active:bg-gray-200"
                 >
                   <span>
                     <img
-                      src={item.prop[0].image[0]}
+                      src={item.images[0].url}
                       className="w-7 h-7 mr-1 rounded-lg"
                       alt=""
                     />

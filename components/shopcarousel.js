@@ -28,21 +28,21 @@ function ShopCarousel() {
           <img
             className=" bg-white h-24 object-cover md:h-64 w-full pointer-events-none"
             loading="lazy"
-            src="https://i.ibb.co/TYNgNgp/Homepage-Banner-AF1-React-170120.jpg"
+            src="/Homepage-Banner-AF1-React-170120.jpg"
           />
         </div>
         <div>
           <img
             className=" bg-white h-24 object-cover md:h-64 w-full"
             loading="lazy"
-            src="https://i.ibb.co/kHhhbbG/adidas-banner-grpn-US.jpg"
+            src="/adidas-banner-grpn-US.jpg"
           />
         </div>
         <div>
           <img
             className=" bg-white h-24 object-cover md:h-64 w-full"
             loading="lazy"
-            src="https://i.ibb.co/WvN6bC5/PLPBanner-Converse-1920x700.png"
+            src="/PLPBanner-Converse-1920x700.png"
           />
         </div>
       </Carousel>
