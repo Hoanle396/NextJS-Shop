@@ -29,7 +29,6 @@ function Basket() {
     message: "",
     qr: "",
   });
-  console.log(BANK_ACCOUNT);
 
   const [step, setStep] = useState("checkout");
 
@@ -44,7 +43,7 @@ function Basket() {
         name: BANK_NAME,
         account: BANK_ACCOUNT,
         amount: data.amount,
-        message: data.message,
+        message: data.code,
         qr: value,
       });
       toast.success("Order has been created");
@@ -52,8 +51,8 @@ function Basket() {
       dispatch(deleteFromBasket());
       setStep("payment");
     },
-    onError: () => {
-      toast.error("Order has been failed");
+    onError: (e) => {
+      toast.error(e?.message ?? "Order has been created failed");
     },
   });
 
@@ -90,9 +89,9 @@ function Basket() {
   };
 
   const handleConfirm = () => {
-    setStep("checkout")
+    setStep("checkout");
     router.push("/shop");
-  }
+  };
 
   return (
     <>
