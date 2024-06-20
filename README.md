@@ -1,9 +1,5 @@
 # WEFOOTWEAR STORE
 
-### Full Stack E-commerce Website for Footwear Store.
-
-![Thumbnail](https://i.ibb.co/bLb6DpL/wefootwear-ss-min.jpg)
-
 ## About The Project
 
 **Wefootwear E-commerce** is an example online shop built with Next js.
